@@ -1,0 +1,365 @@
+page {
+  background-color: transparent;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  padding: 0;
+  color: #5a5d61;
+  font-size: 28rpx;
+  box-sizing: border-box;
+}
+
+/* 页面背景渐变，与首页保持一致的莫兰迪色系 */
+.gradient-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom, #c0d9e7, #e8f0f5 60%); /* 莫兰迪蓝色系渐变 */
+  z-index: -1; /* 确保在内容下方 */
+}
+
+.container {
+  padding: 20rpx; /* 统一 padding */
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+/* 统一卡片样式，参考 input.wxss 的 form-group */
+.card {
+  margin-bottom: 20rpx; /* 减少间距 */
+  background-color: rgba(255, 255, 255, 0.85);
+  border-radius: 10rpx;
+  padding: 15rpx 20rpx; /* 调整内边距 */
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.05);
+}
+
+/* 统一 Section Title 样式 */
+.section-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  margin: 30rpx 0 20rpx; /* 调整 margin */
+  color: #333;
+  padding-left: 10rpx;
+  border-left: 6rpx solid #1989fa; /* 保持蓝色边框 */
+}
+
+.hint { /* 尽管在 WXML 中被移除，但保留样式定义以防万一或未来使用 */
+  font-size: 24rpx;
+  color: #999;
+  margin-bottom: 20rpx;
+}
+
+/* 表单行左右布局 */
+.form-row {
+  display: flex;
+  align-items: stretch; /* 确保子元素垂直方向上填充整个容器高度，实现两端对齐 */
+  gap: 10rpx; /* 增加元素之间的间距 */
+}
+
+/* 统一输入框样式 */
+.form-input {
+  height: 70rpx; /* 调整高度 */
+  line-height: 70rpx; /* 调整行高 */
+  padding: 0 20rpx;
+  background-color: #f9f9f9; /* 更白的背景 */
+  border-radius: 8rpx;
+  font-size: 28rpx;
+  border: 1rpx solid #e0e0e0; /* 统一边框颜色 */
+  box-sizing: border-box;
+  text-align: left;
+  min-width: 0;
+  color: #5a5d61; /* 统一文字颜色 */
+}
+
+/* 新增：弹性伸缩并占据剩余空间 */
+.flex-grow-and-shrink {
+  flex: 1 1 auto; /* flex-grow: 1, flex-shrink: 1, flex-basis: auto */
+}
+
+/* 统一所有应用按钮的基类样式 */
+.app-button {
+  height: 70rpx; /* 修正点：降低高度，使其更紧凑 */
+  line-height: 70rpx; /* 修正点：降低行高，使其更紧凑 */
+  font-size: 28rpx; /* 修正点：降低字体大小 */
+  border-radius: 8rpx; /* 统一圆角 */
+  flex: 1; /* 弹性填充 */
+  /* margin: 0 10rpx; 这行将被 .button-row 内部的 margin 覆盖，或不再需要 */
+  box-shadow: 0 2rpx 5rpx rgba(0,0,0,0.1); /* 较小的阴影 */
+  transition: background-color 0.3s ease; /* 统一过渡效果 */
+  border: none; /* 移除默认边框 */
+}
+
+.app-button::after { /* 移除小程序按钮默认的伪元素边框 */
+  border: none;
+}
+
+.app-button:active {
+  opacity: 0.8; /* 统一点击活跃态 */
+}
+
+/* 小尺寸应用按钮的通用样式 */
+.app-small-button {
+  height: 70rpx; /* 与 custom-picker-input 高度一致 */
+  line-height: 70rpx; /* 与 custom-picker-input 行高一致 */
+  font-size: 26rpx; /* 与 custom-picker-input 字体大小一致 */
+  padding: 0 20rpx; /* 调整内边距 */
+  flex-shrink: 0; /* 防止被压缩 */
+  box-sizing: border-box; /* 确保 padding 不增加总高度 */
+  border-radius: 8rpx; /* 统一圆角 */
+  box-shadow: 0 2rpx 5rpx rgba(0,0,0,0.1); /* 较小的阴影 */
+  transition: background-color 0.3s ease;
+  border: none;
+}
+
+.app-small-button::after {
+  border: none;
+}
+
+.app-small-button:active {
+  opacity: 0.8;
+}
+
+/* 为了实现右侧按钮垂直对齐，给这些按钮一个统一的固定宽度 */
+.button-fixed-width {
+    width: 120rpx; /* 保持与之前一致，可根据实际测试调整 */
+    min-width: 120rpx; /* 确保最小宽度 */
+    max-width: 120rpx; /* 确保最大宽度 */
+}
+
+
+/* 主色按钮 */
+.primary-button {
+  background-color: #8ca2ad; /* 莫兰迪蓝灰色 */
+  color: white;
+}
+
+/* 次要色按钮 (例如重置筛选) */
+.secondary-button {
+  background-color: #a8b8c8; /* 莫兰迪灰色 */
+  color: white;
+}
+
+/* 危险操作按钮 */
+.danger-button {
+  background-color: #ff4d4f !important; /* 红色，强制覆盖 */
+  color: #fff;
+  border: none; /* 确保没有边框干扰 */
+}
+
+/* 未激活的危险操作按钮 (用于课程管理删除按钮) */
+.inactive-danger-button {
+  background-color: #f9f9f9 !important; /* 更白的灰色背景 */
+  color: #999999; /* 统一灰色文字颜色 */
+  border: 1rpx solid #e0e0e0; /* 统一边框颜色 */
+}
+
+/* 成功操作按钮 */
+.success-button {
+  background-color: #28a745 !important; /* 绿色，强制覆盖 */
+  color: #fff;
+  border: none; /* 确保没有边框干扰 */
+}
+
+
+/* 课程列表删除按钮和记录删除按钮的统一样式 */
+.app-delete-button {
+  color: #ff4d4f; /* 红色字体 */
+  font-size: 24rpx; /* 修正点：字体大小与表格内容字体一致 */
+  padding: 4rpx 8rpx; /* 修正点：调整内边距，使其更紧凑 */
+  background-color: rgba(255, 77, 79, 0.1); /* 淡红色背景 */
+  border-radius: 8rpx; /* 圆角 */
+  display: inline-block; /* 确保 padding 和 background-color 生效 */
+  line-height: 1; /* 确保文本垂直居中且不撑开高度 */
+  box-sizing: border-box; /* 确保 padding 不会增加总高度 */
+  margin-left: 10rpx; /* 修正点：减小左侧外边距 */
+  flex-shrink: 0; /* 防止被压缩 */
+}
+
+/* 课程列表项 */
+.course-list {
+  margin-top: 20rpx;
+}
+
+.course-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center; /* 垂直居中对齐 */
+  padding: 8rpx 0; /* 修正点：进一步减小垂直内边距，使其更紧凑 */
+  border-bottom: 1rpx solid #eee;
+}
+
+.course-item:last-child {
+  border-bottom: none;
+}
+
+.course-name {
+  flex: 1;
+  font-size: 24rpx; /* 修正点：减小字体大小，与成绩记录字体一致 */
+  color: #555;
+  line-height: 1.5; /* 默认行高，或根据需要调整 */
+}
+
+
+/* 筛选功能区样式 */
+.filter-bar {
+  display: flex;
+  align-items: stretch; /* 确保子元素垂直方向上填充整个容器高度，实现两端对齐 */
+  margin-bottom: 30rpx;
+  padding: 10rpx;
+  background-color: rgba(255, 255, 255, 0.85);
+  border-radius: 10rpx;
+  box-shadow: 0 2rpx 8rpx rgba(0,0,0,0.05);
+  /* 调整 gap 或使用 margin 来更精确控制间距，这里将 gap 暂时取消，用 margin 替代 */
+  /* gap: 10rpx; */
+}
+
+/* 自定义 picker 和 input 的统一外观 */
+.custom-picker-input {
+  height: 70rpx;
+  line-height: 70rpx;
+  padding: 0 15rpx;
+  background-color: #f9f9f9; /* 更白的背景 */
+  border-radius: 8rpx;
+  color: #555;
+  font-size: 26rpx;
+  border: 1rpx solid #e0e0e0; /* 统一边框颜色 */
+  text-align: center;
+  box-sizing: border-box;
+  flex: 1; /* 在其父容器中弹性填充 */
+}
+
+/* 成绩记录及管理下的姓名和学科选项框的父容器 */
+.filter-pickers-group {
+  display: flex;
+  /* gap: 10rpx;  移除内部的 gap，使用 margin-right 来控制和右侧按钮的间距 */
+  flex: 1 1 0%; /* 让它完全弹性填充剩余空间 */
+  /* 确保这个容器可以弹性伸缩 */
+  /* flex: 1 1 auto; */
+}
+
+.filter-group { /* 姓名和学科的picker本身 */
+  flex: 1 1 0%; /* 关键：让两个picker等分可用空间，flex-basis: 0% 确保在计算时从0开始分配 */
+  margin-right: 10rpx; /* 在两个picker之间添加间距 */
+}
+
+.filter-group:last-child {
+    margin-right: 0; /* 最后一个picker右侧没有间距 */
+}
+
+/* 针对 filter-bar 内部的重置按钮 */
+.filter-bar .app-small-button.primary-button {
+    /* 如果需要微调重置按钮的位置，可以在这里添加 margin-left */
+    /* margin-left: Xrpx; */ /* 例如，增加一点点左外边距 */
+    /* 确保其宽度与 button-fixed-width 一致 */
+    width: 120rpx;
+    min-width: 120rpx;
+    max-width: 120rpx;
+    /* 取消了 filter-bar 上的 gap，因此这里需要手动添加与 picker group 之间的间距 */
+    margin-left: 10rpx;
+}
+
+
+/* 成绩记录表格 */
+.record-table {
+  background-color: rgba(255, 255, 255, 0.85);
+  border-radius: 10rpx;
+  overflow: hidden;
+  box-shadow: 0 2rpx 8rpx rgba(0,0,0,0.05);
+  margin-top: 20rpx;
+}
+
+.table-header {
+  display: flex;
+  background-color: #f5f7fa;
+  padding: 15rpx 0; /* 修正点：与col的padding保持一致或略大 */
+  font-weight: bold;
+  font-size: 24rpx; /* 修正点：与col的字体大小保持一致 */
+  color: #555;
+  border-bottom: 1rpx solid #eee;
+}
+
+.table-row {
+  display: flex;
+  border-bottom: 1rpx solid #eee;
+}
+
+.table-row:last-child {
+  border-bottom: none;
+}
+
+.col {
+  padding: 15rpx 5rpx; /* 调整内边距，使其更紧凑 */
+  text-align: center;
+  font-size: 24rpx; /* 字体稍微小一点 */
+  color: #333;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* 调整各列的 flex 比例，使其更紧凑 */
+.name-col {
+  flex: 1.2;
+}
+.course-col {
+  flex: 1;
+}
+.score-col {
+  flex: 0.8;
+}
+.date-col {
+  flex: 1.3;
+}
+.remarks-col {
+  flex: 1.5;
+}
+.operation-col {
+  flex: 1;
+}
+
+.empty-tip {
+  text-align: center;
+  padding: 30rpx;
+  color: #999;
+  font-size: 28rpx;
+}
+
+/* 底部按钮组 */
+.button-group-bottom {
+  /* 取消原有的flex属性，让其子元素.button-row来控制布局 */
+  display: block; /* 确保 .button-row 能够独占一行 */
+  margin-top: 30rpx;
+  /* gap: 20rpx; /* 按钮之间间距，现在由 .button-row 和其内部按钮的 margin 来控制 */
+}
+
+/* 新增：两行按钮的容器样式 */
+.button-group-bottom .button-row {
+  display: flex;
+  justify-content: space-between; /* 按钮两端对齐并分散 */
+  margin-bottom: 20rpx; /* 每行之间的间距 */
+  gap: 20rpx; /* 修正：使用 gap 来控制按钮之间的间距，更简洁 */
+}
+
+/* 调整 .app-button 在 .button-row 中的样式，使其均匀分布 */
+.button-group-bottom .button-row .app-button {
+  flex: 1; /* 让按钮平均分配空间 */
+  margin: 0; /* 确保不被其它 margin 干扰 */
+  /* 如果 flex: 1 导致按钮过窄，可以尝试设置一个 min-width */
+  /* min-width: 150rpx; */
+}
+
+
+/* 警告卡片 */
+.warning-card {
+  border: 1rpx solid #ff4d4f;
+  background-color: #fff0f0;
+}
+
+.warning-title {
+  color: #ff4d4f;
+  border-left-color: #ffcccb; /* 与 border-left 对应 */
+  /* 调整字体大小和行高以适应新内容 */
+  font-size: 28rpx; /* 减小字体大小 */
+  line-height: 1.4; /* 调整行高 */
+  font-weight: normal; /* 恢复正常字重，如果不需要粗体 */
+}

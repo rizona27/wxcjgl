@@ -1,0 +1,103 @@
+<view class="gradient-bg"></view>
+
+<view class="container">
+  <view class="form-group form-row">
+    <view class="label">课程</view>
+    <picker bindchange="courseChange" value="{{courseIndex}}" range="{{allCourses}}" class="flex-item">
+      <view class="picker">{{courseIndex >= 0 && allCourses.length > 0 ?
+allCourses[courseIndex] : '请选择课程'}}</view>
+    </picker>
+  </view>
+  
+  <view class="form-group form-row">
+    <view class="label">姓名</view> 
+    <input  
+      placeholder="请输入姓名"  
+      value="{{student}}"  
+      bindinput="onStudentInput"  
+      class="fixed-input student-input flex-item" 
+    />
+  </view>
+  
+  <view class="form-group form-row">
+    <view class="label">成绩</view>
+    <input  
+      placeholder="{{scorePlaceholder}}"  
+  
+     type="digit"  
+ 
+     value="{{score}}"  
+      bindinput="onScoreInput"  
+      class="fixed-input flex-item"
+    />
+  </view>
+  
+  <view class="form-group form-row">
+    <view class="label">日期</view>
+    <picker mode="date" value="{{date}}" bindchange="onDateChange" class="flex-item">
+      <view class="picker">{{date}}</view>
+    </picker>
+  </view>
+  
+  <view class="form-group form-row">
+    <view class="label">备注</view>
+    <input  
+      placeholder="不超过10个汉字"  
+ 
+      maxlength="10"  
+      
+value="{{remarks}}"  
+      bindinput="onRemarksInput"  
+      class="fixed-input flex-item"
+    />
+  </view>
+  
+  <view class="button-group">
+    <button class="primary-btn submit-only-btn" bindtap="submitGrade">提交成绩</button>
+  </view>
+  
+  <view class="section-title">成绩记录及查询</view> 
+  
+  <view class="filter-section">
+    <view class="filter-group">
+      <picker bindchange="filterStudentChange" value="{{filterStudentIndex}}" range="{{students}}">
+       
+ <view class="filter-picker">{{filterStudentIndex >= 0 ?
+students[filterStudentIndex] : '筛选学生'}}</view>
+      </picker>
+    </view>
+    <view class="filter-group">
+      <picker bindchange="filterCourseChange" value="{{filterCourseIndex}}" range="{{filterableCourses}}">
+        <view class="filter-picker">{{filterCourseIndex >= 0 ?
+filterableCourses[filterCourseIndex] : '筛选课程'}}</view>
+      </picker>
+    </view>
+    <button class="reset-btn" bindtap="resetFilters">重置筛选</button>
+  </view>
+
+  <scroll-view scroll-y class="record-table">
+    <view class="table-header">
+      <view class="col name-col">姓名</view>
+      <view class="col course-col">学科</view>
+      <view class="col score-col">成绩</view>
+      <view class="col date-col">日期</view>
+      <view class="col remarks-col">备注</view> 
+    </view>
+    
+    <block wx:for="{{filteredRecords}}" wx:key="id"> 
+      <view class="table-row" bindtap="editRecord" data-id="{{item.id}}">
+  
+    
+       <view class="col name-col">{{item.student}}</view>
+        <view class="col course-col">{{item.course}}</view>
+        <view class="col score-col">{{item.score}}/{{item.fullScore}}</view>
+        <view class="col date-col">{{item.date}}</view>
+        <view class="col remarks-col">{{item.remarks}}</view> 
+      </view>
+    </block>
+    
+    <view wx:if="{{filteredRecords.length === 0}}" class="empty-tip">
+      暂无成绩记录
+    </view>
+  </scroll-view>
+</view>

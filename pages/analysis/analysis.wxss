@@ -1,0 +1,225 @@
+/* pages/analysis/analysis.wxss */
+
+/* 页面背景透明，并设置全局渐变背景 - 直接从 index.wxss 复制 */
+page {
+  background-color: transparent;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  padding: 0;
+  color: #5a5d61;
+  font-size: 28rpx;
+  box-sizing: border-box;
+}
+
+.gradient-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom, #a8b8c8, #f0f1f3 60%); /* 与 index 页面一致的渐变色 */
+  z-index: -1;
+  /* 确保在内容下方 */
+}
+
+/* 注意：已恢复 @import '../config/config.wxss'; 以确保通用样式加载 */
+@import '../config/config.wxss';
+/* 以下是 analysis 页面自身和通用组件的样式，部分可能需要从 config.wxss 覆盖或补充 */
+
+/* 为按钮组添加 flex 布局和间距 */
+.btn-group {
+  display: flex;
+  /* 使按钮水平排列 */
+  justify-content: center; /* 按钮居中 */
+  gap: 20rpx;
+  /* 按钮之间的间距 */
+  /* margin-top: 30rpx; 保持 WXML 中的外边距 */
+}
+
+.chart-container {
+  padding: 20rpx;
+  /* 与卡片内边距一致 */
+  background: rgba(255, 255, 255, 0.85);
+  /* 统一卡片背景 */
+  border-radius: 10rpx;
+  /* 统一卡片圆角 */
+  margin-bottom: 20rpx;
+  /* 与卡片间距一致 */
+  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.1); /* 统一卡片阴影，增强效果 */
+}
+
+.chart {
+  width: 100%;
+  height: 400rpx; /* 统一图表高度，可根据需要调整 */
+  margin-top: 20rpx; /* 标题与图表之间间距 */
+  margin-bottom: 40rpx;
+  /* 增加底部外边距，避免X轴标签被遮挡 */
+}
+
+/* 饼图专用样式，使其更大 */
+.chart-pie {
+  height: 600rpx; /* 增大饼图的显示区域 */
+}
+
+.chart-stats {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20rpx;
+  padding: 10rpx 0;
+  border-top: 1rpx solid #eee;
+}
+
+.stat-item {
+  text-align: center;
+  flex: 1;
+}
+
+.stat-label {
+  font-size: 24rpx;
+  color: #999;
+}
+
+.stat-value {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #5a5d61;
+  margin-top: 5rpx;
+}
+
+.subject-list {
+  margin-top: 30rpx;
+  /* 增加与图表的间距 */
+  border-top: 1rpx solid #eee;
+  padding-top: 15rpx;
+  max-height: 300rpx;
+  /* 设置最大高度 */
+  overflow-y: auto;
+  /* 垂直滚动 */
+}
+
+.subject-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10rpx; /* 增加左右内边距 */
+  border-bottom: 1rpx solid #eee;
+  transition: all 0.2s ease-in-out; /* 添加过渡效果 */
+  background-color: #fff; /* 默认背景色 */
+  border-left: 8rpx solid transparent; /* 默认左侧透明边框 */
+}
+
+.subject-item:last-child {
+  border-bottom: none;
+}
+
+/* 饼图高亮效果 */
+.subject-item.highlighted {
+  background-color: #f0f8ff; /* 浅蓝色背景 */
+  box-shadow: 0 2rpx 6rpx rgba(0,0,0,0.1); /* 轻微阴影 */
+  transform: translateY(-2rpx); /* 向上轻微抬起 */
+}
+
+
+.subject-name {
+  flex: 2;
+  font-size: 28rpx;
+  /* color 在 WXML 中动态绑定 */
+}
+
+.subject-score {
+  flex: 1;
+  text-align: right;
+  font-size: 28rpx;
+  color: #5a5d61;
+  margin-left: 10rpx;
+}
+
+.subject-loss-score {
+  flex: 1;
+  text-align: right;
+  font-size: 28rpx;
+  font-weight: bold;
+  color: #e74c3c;
+  margin-left: 10rpx;
+}
+
+
+/* 新增：学生成绩列表样式 */
+.student-score-list {
+  margin-top: 30rpx;
+  border-top: 1rpx solid #eee;
+  padding-top: 15rpx;
+  max-height: 300rpx; /* 设置最大高度，超过则滚动 */
+  overflow-y: auto; /* 垂直滚动 */
+}
+
+.student-score-list .list-header {
+  display: flex;
+  justify-content: space-between;
+  padding: 10rpx;
+  font-weight: bold;
+  color: #666;
+  border-bottom: 1rpx solid #ddd;
+  margin-bottom: 10rpx;
+}
+
+.student-score-list .list-header .header-name {
+  flex: 2;
+}
+
+.student-score-list .list-header .header-score {
+  flex: 1;
+  text-align: right;
+}
+
+.student-score-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10rpx;
+  border-bottom: 1rpx solid #eee;
+  background-color: #fff;
+  border-left: 8rpx solid transparent; /* 用于动态颜色填充 */
+}
+
+.student-score-item:last-child {
+  border-bottom: none;
+}
+
+.student-score-item .student-name {
+  flex: 2;
+  font-size: 28rpx;
+  /* color 在 WXML 中动态绑定 */
+}
+
+.student-score-item .student-score {
+  flex: 1;
+  text-align: right;
+  font-size: 28rpx;
+  font-weight: bold;
+  color: #5a5d61; /* 可以保持默认色或更突出 */
+}
+
+
+/* 使用说明样式 */
+.instructions {
+  padding: 20rpx;
+  background: rgba(255, 255, 255, 0.85);
+  border-radius: 10rpx;
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.05);
+  color: #5a5d61;
+  border: 1rpx solid #e0e0e0;
+  margin-top: 30rpx;
+}
+
+.instruction-item {
+  font-size: 28rpx;
+  margin-bottom: 10rpx;
+  line-height: 1.5;
+  padding: 5rpx 0;
+  border-bottom: 1rpx dashed #f0f0f0;
+}
+
+.instruction-item:last-child {
+  margin-bottom: 0;
+  border-bottom: none;
+}

@@ -1,0 +1,123 @@
+/* 引入 index.wxss 中通用的样式 */
+/* 注意：这里需要手动复制 .container 和 .gradient-bg 的样式，因为 @import 不被小程序支持 */
+.container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  /* 增加顶部内边距以避开灵动岛和顶部状态栏 */
+  padding-top: 150rpx;
+  /* 进一步增加此值，可根据实际手机测试调整 */
+  padding-bottom: 60rpx;
+  position: relative;
+  /* 移除这里的背景渐变，由 .gradient-bg 统一管理 */
+  box-sizing: border-box;
+}
+
+/* 确保背景覆盖整个屏幕 */
+.gradient-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, #a8b8c8, #f0f1f3 60%);
+    z-index: -1; /* 放在最底层 */
+}
+
+/* === 原来的顶部图片容器和图片样式，由于 about.wxml 中已移除相关元素，这里可以删除或注释掉 === */
+/*
+.image-container {
+  width: 100%;
+  padding-top: calc(100% * 9 / 16);
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 40rpx;
+  border-radius: 20rpx;
+  box-shadow: 0 4rpx 10rpx rgba(0,0,0,0.05);
+  margin-left: 30rpx;
+  margin-right: 30rpx;
+}
+
+.top-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+*/
+
+
+/* About 页面内容区域特定样式 */
+.about-content {
+  flex: 1; /* 让内容区域占据剩余空间，将按钮推到底部 */
+  display: flex;
+  flex-direction: column; /* 关键：让子元素垂直堆叠 */
+  justify-content: flex-start; /* 让内容从容器顶部开始排列 */
+  align-items: center; /* 水平居中所有内容 */
+  text-align: center;
+  margin: 0 30rpx; /* 左右边距保持一致 */
+  /* === 关键修改：调整这里的 margin-top，与 index 页面的 .weather-card 保持一致 === */
+  margin-top: 50rpx; /* 与 index 页面的 .weather-card 的 margin-top 保持一致 */
+  background: rgba(255, 255, 255, 0.2); /* 半透明背景 */
+  border-radius: 20rpx;
+  padding: 60rpx 40rpx; /* 内部填充 */
+  backdrop-filter: blur(10rpx);
+  box-shadow: 0 4rpx 10rpx rgba(0,0,0,0.05);
+}
+
+.about-title {
+  font-size: 80rpx; /* 大尺寸 */
+  font-weight: bold;
+  margin-bottom: 30rpx;
+  text-shadow: 2rpx 2rpx 4rpx rgba(0,0,0,0.1); /* 添加一点阴影 */
+}
+
+.about-line {
+  font-size: 36rpx;
+  margin-bottom: 15rpx;
+  font-weight: 500;
+}
+
+/* 二维码样式 */
+.qrcode {
+  width: 36rpx; /* 设置二维码宽度，与 about-line 的字体大小保持一致 */
+  height: 36rpx; /* 保持与宽度一致，确保正方形 */
+  margin-top: 10rpx; /* 二维码与上方文字的间距 */
+  margin-bottom: 15rpx; /* 二维码与下方内容的间距 */
+}
+
+
+.back-button-container {
+  position: fixed;
+  bottom: 80rpx; /* 调整位置 */
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  z-index: 10;
+}
+
+.back-button {
+  width: 300rpx;
+  height: 90rpx;
+  line-height: 90rpx;
+  background-color: rgba(168, 184, 200, 0.6); /* 半透明莫兰蒂色方框 */
+  color: #fff;
+  border-radius: 45rpx; /* 圆角 */
+  font-size: 36rpx;
+  font-weight: bold;
+  border: none;
+  box-shadow: 0 4rpx 15rpx rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
+}
+
+.back-button::after {
+  border: none; /* 移除按钮默认边框 */
+}
+
+.back-button:active {
+  background-color: rgba(168, 184, 200, 0.8); /* 点击时颜色变深 */
+  transform: scale(0.98);
+}

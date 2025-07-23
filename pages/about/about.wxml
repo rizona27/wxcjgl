@@ -1,0 +1,16 @@
+<view class="gradient-bg"></view>
+<view class="container">
+
+  <view class="about-content">
+    <text class="about-title" style="color: {{colors[0]}};">Opps～</text>
+    <text class="about-line" style="color: {{colors[1]}};">Hello World!</text>
+    <text class="about-line" style="color: {{colors[2]}};">WITH THE HELP OF AI,EVERYONE CAN TURN THEIR IDEAS INTO REALITY.</text>
+    <text class="about-line" style="color: {{colors[3]}};">本工具依托谷歌Gemini、深度求索Deepseek写作而成</text>
+    <text class="about-line" style="color: {{colors[4]}};">由衷感谢科技的进步～</text>
+    <image src="/images/qr.png" mode="widthFix" class="qrcode"></image>
+  </view>
+
+  <view class="back-button-container">
+    <button class="back-button" bindtap="goBack">返回</button>
+  </view>
+</view>

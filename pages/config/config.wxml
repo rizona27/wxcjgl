@@ -1,0 +1,166 @@
+<view class="gradient-bg"></view>
+<view class="container">
+  <view class="card">
+    <view class="section-title">课程管理</view>
+
+    <view class="form-row">
+      <picker
+        bindchange="onCourseSelectChange"
+        value="{{selectedCourseIndex}}"
+        range="{{courses}}"
+        class="custom-input-group-item flex-grow-and-shrink" >
+        <view class="custom-picker-input">
+          {{selectedCourseIndex >= 0 ? courses[selectedCourseIndex] : '添加/删除课程'}}
+        </view>
+      </picker>
+      <button
+        class="app-small-button primary-button button-fixed-width" bindtap="addNewCoursePrompt"
+      >
+        添加
+      </button>
+      <button
+        class="app-small-button {{selectedCourseIndex === -1 ? 'inactive-danger-button' : 'danger-button'}} button-fixed-width" bindtap="deleteSelectedCourse"
+        disabled="{{selectedCourseIndex === -1}}"
+      >
+        删除
+      </button>
+    </view>
+
+    <view wx:if="{{courses.length === 0}}" class="empty-tip">
+      暂无课程，请添加课程
+    </view>
+  </view>
+
+  <view class="card">
+    <view class="section-title">满分设置</view>
+
+    <view class="form-row">
+      <input
+        placeholder="请输入满分值 (1-300)"
+        type="number"
+        value="{{fullScore}}"
+        disabled="{{!editingScore}}"
+        bindinput="onFullScoreInput"
+        class="form-input custom-input-group-item flex-grow-and-shrink" />
+      <button
+        class="app-small-button {{editingScore ? 'success-button' : 'danger-button'}} button-fixed-width" bindtap="{{editingScore ? 'saveFullScore' : 'enableScoreEdit'}}"
+      >
+        {{editingScore ? '保存' : '修改'}}
+      </button>
+    </view>
+  </view>
+
+  <view class="card">
+    <view class="section-title">成绩记录及管理</view>
+
+    <view class="filter-bar">
+      <view class="filter-pickers-group custom-input-group-item flex-grow-and-shrink"> <picker bindchange="studentFilterChange" value="{{filterStudentIndex}}" range="{{students}}" class="filter-group">
+          <view class="custom-picker-input">{{filterStudentIndex>=0?students[filterStudentIndex]:'筛选学生'}}</view>
+        </picker>
+
+        <picker bindchange="courseFilterChange" value="{{filterCourseIndex}}" range="{{courses}}" class="filter-group">
+          <view class="custom-picker-input">{{filterCourseIndex>=0?courses[filterCourseIndex]:'筛选课程'}}</view>
+        </picker>
+      </view>
+      <button class="app-small-button primary-button button-fixed-width" bindtap="clearFilters">重置</button>
+    </view>
+
+    <view class="form-row" style="margin-top: 20rpx;">
+      <picker
+        bindchange="onRecordSelectChange"
+        value="{{selectedRecordIndex}}"
+        range="{{formattedFilteredRecords}}"
+        class="custom-input-group-item flex-grow-and-shrink" >
+        <view class="custom-picker-input">
+          {{selectedRecordIndex >= 0 ? formattedFilteredRecords[selectedRecordIndex] : '请选择要操作的成绩记录'}}
+        </view>
+      </picker>
+      <button
+        class="app-small-button {{selectedRecordIndex === -1 ? 'inactive-danger-button' : 'danger-button'}} button-fixed-width" bindtap="deleteSelectedRecord"
+        disabled="{{selectedRecordIndex === -1}}"
+      >
+        删除
+      </button>
+    </view>
+
+    <view wx:if="{{records.length === 0}}" class="empty-tip" style="margin-top: 20rpx;">
+      暂无任何成绩记录
+    </view>
+    <view wx:if="{{records.length > 0 && formattedFilteredRecords.length === 0}}" class="empty-tip" style="margin-top: 20rpx;">
+      按当前筛选无匹配记录
+    </view>
+
+    <view class="button-group-bottom">
+      <view class="button-row"> <button
+          class="app-button primary-button"
+          bindtap="copyRecordsToClipboard"
+          disabled="{{isExporting || isImportingFile || isImportingClipboard}}"
+        >
+          导出到剪贴板
+        </button>
+        <button
+          class="app-button primary-button"
+          bindtap="importRecordsFromClipboard"
+          loading="{{isImportingClipboard}}"
+          disabled="{{isExporting || isImportingFile || isImportingClipboard}}"
+        >
+          从剪贴板导入
+        </button>
+      </view>
+      <view class="button-row"> <button
+          class="app-button primary-button"
+          bindtap="exportRecords"
+          loading="{{isExporting}}"
+          disabled="{{isExporting || isImportingFile || isImportingClipboard}}"
+        >
+          导出为CSV
+        </button>
+        <button
+          class="app-button primary-button"
+          bindtap="importRecords"
+          loading="{{isImportingFile}}"
+          disabled="{{isExporting || isImportingFile || isImportingClipboard}}"
+        >
+          从CSV导入
+        </button>
+      </view>
+    </view>
+  </view>
+
+  <view class="card warning-card" style="margin-top: 20rpx;">
+    <view class="section-title warning-title">特别提示：</view>
+    <view class="warning-description-line1" style="margin-top: 10rpx; color: red;">微信的空间清除类操作，均可能影响本程序缓存</view>
+    <view class="warning-description-line2" style="margin-top: 5rpx; color: red;">以下操作将永久清除本地缓存数据，请谨慎操作。</view>
+  </view>
+
+  <view class="card warning-card">
+    <view class="button-group-bottom" style="margin-top: 20rpx;">
+      <view class="button-row">
+        <button
+          class="app-button danger-button"
+          bindtap="promptDeleteByStudent"
+        >
+          按姓名删除成绩
+        </button>
+      </view>
+      <view class="button-row">
+        <button
+          class="app-button danger-button"
+          bindtap="promptDeleteByDate"
+        >
+          按日期删除成绩
+        </button>
+      </view>
+      <view class="button-row">
+        <button
+          class="app-button danger-button"
+          bindtap="promptDeleteByCourse"
+        >
+          按课程删除成绩
+        </button>
+      </view>
+    </view>
+
+    <button class="app-button danger-button" bindtap="confirmClearAndRestart" style="margin-top: 20rpx;">清除所有本地缓存</button>
+  </view>
+</view>

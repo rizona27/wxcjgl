@@ -1,0 +1,38 @@
+<view class="gradient-bg"></view>
+<view class="container">
+  <view class="refresh-indicator" wx:if="{{refreshStatus !== ''}}">
+    {{refreshStatus}}
+  </view>
+  
+  <view class="pull-up-indicator" wx:if="{{pullUpStatus !== ''}}">
+    {{pullUpStatus}}
+  </view>
+  
+  <view class="weather-card">
+    <view class="city">{{city}}</view>
+    <view class="current-weather">
+      {{weather.now.text}} {{weather.now.temp}}℃
+    </view>
+    
+    <view class="forecast-container">
+      <view class="forecast-item" wx:for="{{weather.daily}}" wx:key="fxDate">
+        <text class="forecast-date-tip">{{item.formattedDate}}</text>
+        <text class="forecast-text">{{item.textDay}}</text>
+        <text class="forecast-temp">{{item.tempMin}}~{{item.tempMax}}℃</text>
+ 
+      </view>
+    </view>
+  </view>
+  
+  <view class="time-card">
+    <view class="time-display {{timeAnimation ? 'time-change' : ''}}">{{time}}</view>
+    <view class="date-display">{{date}} {{weekday}}</view>
+    <view class="lunar-display">{{lunar}}</view>
+  </view>
+  
+  <view class="info-card">
+    <view class="author-info">
+      <text>Copyright © rizona. All rights reserved</text>
+      <text bindtap="goToAbout">rizona.cn@gmail.com</text> </view>
+  </view>
+</view>

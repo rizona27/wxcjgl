@@ -1,0 +1,104 @@
+<view class="gradient-bg"></view>
+<view class="container">
+  <view class="card">
+    <view class="form-group">
+      <picker bindchange="studentChange" value="{{studentIndex}}" range="{{students}}">
+        <view class="custom-picker-input">
+          {{studentIndex === 0 ? '请选择学生(可选)' : students[studentIndex]}}
+        </view>
+      </picker>
+    </view>
+
+    <view class="form-group" style="margin-top: 20rpx;">
+      <picker bindchange="courseChange" value="{{courseIndex}}" range="{{courses}}">
+        <view class="custom-picker-input">
+          {{courseIndex === 0 ? '请选择课程(可选)' : courses[courseIndex]}}
+        </view>
+      </picker>
+    </view>
+
+    <view class="form-group" style="margin-top: 20rpx;" wx:if="{{chartType === 'selectDateForCourse' || chartType === 'studentCourse'}}">
+      <picker bindchange="dateChange" value="{{selectedDateIndex}}" range="{{availableDates}}">
+        <view class="custom-picker-input">
+          {{selectedDateIndex === 0 ? '请选择日期' : availableDates[selectedDateIndex]}}
+        </view>
+      </picker>
+    </view>
+
+    <view class="btn-group" style="margin-top: 30rpx;">
+      <button class="app-button primary-button" bindtap="generateChart">生成图表</button>
+      </view>
+  </view>
+
+  <view class="chart-container card" wx:if="{{chartType === 'trend'}}">
+    <view class="chart-title section-title">{{studentName}}的{{courseName}}成绩变化趋势</view>
+    <canvas canvas-id="trendCanvas" id="trendCanvas" class="chart"></canvas>
+    <view class="chart-stats">
+      <view class="stat-item">
+        <view class="stat-label">最高分</view>
+        <view class="stat-value">{{maxScore}}</view>
+      </view>
+      <view class="stat-item">
+        <view class="stat-label">最低分</view>
+        <view class="stat-value">{{minScore}}</view>
+      </view>
+      <view class="stat-item">
+        <view class="stat-label">平均分</view>
+        <view class="stat-value">{{avgScore}}</view>
+      </view>
+    </view>
+  </view>
+
+  <view class="chart-container card" wx:if="{{chartType === 'subject'}}">
+    <view class="chart-title section-title">{{studentName}}各科成绩分布</view>
+    <canvas canvas-id="subjectCanvas" id="subjectCanvas" class="chart chart-pie"></canvas>
+    <view class="subject-list">
+      <block wx:for="{{subjectData}}" wx:key="course">
+        <view class="subject-item {{index === highlightedSubjectIndex ? 'highlighted' : ''}}"
+              style="border-left: 8rpx solid {{item.color}};"> <view class="subject-name" style="color: {{item.color}};">{{item.course}}</view> <view class="subject-score">{{item.score}}/{{item.fullScore}}</view>
+          <view class="subject-loss-score">失分: {{item.lossScore}}</view>
+        </view>
+      </block>
+    </view>
+  </view>
+
+  <view class="chart-container card" wx:if="{{chartType === 'studentCourse'}}">
+    <view class="chart-title section-title">{{courseName}}在{{availableDates[selectedDateIndex]}}的成绩概览</view>
+    <canvas canvas-id="studentCourseCanvas" id="studentCourseCanvas" class="chart chart-bar"></canvas>
+    <view class="chart-stats">
+      <view class="stat-item">
+        <view class="stat-label">最高分</view>
+        <view class="stat-value">{{maxScore}}</view>
+      </view>
+      <view class="stat-item">
+        <view class="stat-label">最低分</view>
+        <view class="stat-value">{{minScore}}</view>
+      </view>
+      <view class="stat-item">
+        <view class="stat-label">平均分</view>
+        <view class="stat-value">{{avgScore}}</view>
+      </view>
+    </view>
+
+    <view class="student-score-list" wx:if="{{studentCourseData.length > 0}}">
+      <view class="list-header">
+        <text class="header-name">学生姓名</text>
+        <text class="header-score">成绩</text>
+      </view>
+      <block wx:for="{{studentCourseData}}" wx:key="student">
+        <view class="student-score-item" style="border-left: 8rpx solid {{item.color}};">
+          <view class="student-name" style="color: {{item.color}};">{{item.student}}</view>
+          <view class="student-score">{{item.score}}</view>
+        </view>
+      </block>
+    </view>
+  </view>
+
+  <view class="instructions card" wx:if="{{!chartType || chartType === 'selectDateForCourse'}}">
+    <view class="section-title">使用说明</view>
+    <view class="instruction-item">• **选择学生 + 选择课程**: 生成该学生该课程的**成绩趋势图**。</view>
+    <view class="instruction-item">• **只选择学生**: 生成该学生各门课程的**最新成绩饼状图** (分析失分比例和分数情况)。</view>
+    <view class="instruction-item">• **只选择课程**: 生成该课程所有学生**指定日期的最新成绩条形图** (显示最高分、最低分、平均分)。</view>
+    <view class="instruction-item">• 请至少选择一个选项进行分析。</view>
+  </view>
+</view>

@@ -1,0 +1,246 @@
+/* input.wxss */
+/* 确保页面背景透明，以便显示全局渐变背景 */
+page {
+  background-color: transparent;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  padding: 0;
+  color: #5a5d61;
+  font-size: 28rpx;
+  box-sizing: border-box;
+}
+
+/* 页面背景渐变，与首页保持一致的莫兰迪色系 */
+.gradient-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom, #c0d9e7, #e8f0f5 60%); /* 莫兰迪蓝色系渐变 */
+  z-index: -1; /* 确保在内容下方 */
+}
+
+.container {
+  padding: 20rpx;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+.form-group {
+  margin-bottom: 20rpx;
+  /* 减少间距 */
+  background-color: rgba(255, 255, 255, 0.85); 
+  border-radius: 10rpx;
+  padding: 15rpx 20rpx;
+  /* 调整内边距 */
+  box-shadow: 0 2rpx 8rpx rgba(0,0,0,0.05);
+}
+
+/* 表单行左右布局 */
+.form-row {
+  display: flex;
+  align-items: center;
+}
+
+.label {
+  font-size: 28rpx;
+  color: #666;
+  margin-right: 20rpx;
+  /* 标签和输入框之间的间距 */
+  flex-shrink: 0;
+  /* 防止标签被压缩 */
+  width: 120rpx;
+  /* 固定标签宽度 */
+  text-align: left;
+  /* 标签左对齐 */ 
+}
+
+.fixed-input, .picker {
+  height: 70rpx;
+  /* 调整高度 */
+  line-height: 70rpx;
+  /* 调整行高 */
+  padding: 0 20rpx;
+  background-color: #f9f9f9;
+  border-radius: 8rpx;
+  font-size: 28rpx;
+  border: 1rpx solid #eee;
+  box-sizing: border-box;
+  text-align: left;
+  /* 确保内容左对齐 */
+}
+
+/* 新增或更新 flex-item 样式，使其弹性填充剩余空间 */
+.flex-item {
+  flex: 1;
+  /* 让它弹性增长和收缩，填充可用空间 */
+  min-width: 0;
+  /* 允许内容在必要时收缩，防止溢出 */
+}
+
+/* 学生姓名输入框的灰度提示文字 */
+.student-input::placeholder {
+  color: #aaa;
+}
+
+/* 提交和重置按钮组 */
+.button-group {
+  display: flex;
+  justify-content: center; /* Changed to center for single button */
+  margin: 40rpx 0;
+}
+
+.primary-btn { /* Removed .reset-form-btn from this selector */
+  height: 90rpx;
+  line-height: 90rpx;
+  font-size: 32rpx;
+  border-radius: 8rpx;
+  flex: 1;
+  /* 让两个按钮平分空间 */
+  /* Removed margin: 0 10rpx; */ /* No longer needed for two buttons */
+  box-shadow: 0 4rpx 10rpx rgba(0,0,0,0.1);
+  transition: background-color 0.3s ease;
+}
+
+.submit-only-btn {
+  margin: 0 20rpx; /* Add some horizontal margin for the single button */
+}
+
+.primary-btn {
+  background-color: #8ca2ad;
+  /* 莫兰迪蓝灰色 */
+  color: white;
+}
+
+.primary-btn::after { 
+  border: none;
+}
+
+.primary-btn:active {
+  background-color: #7a8d9b;
+}
+
+/* .reset-form-btn is removed as the button is no longer present */
+
+.section-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  margin: 30rpx 0 20rpx;
+  color: #333;
+  padding-left: 10rpx;
+  border-left: 6rpx solid #1989fa;
+}
+
+/* 筛选功能区样式 */
+.filter-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30rpx;
+  padding: 10rpx;
+  background-color: rgba(255, 255, 255, 0.85);
+  border-radius: 10rpx;
+  box-shadow: 0 2rpx 8rpx rgba(0,0,0,0.05);
+}
+
+.filter-group {
+  flex: 1;
+  margin: 0 5rpx;
+  /* 调整筛选器之间的间距 */
+}
+
+.filter-picker {
+  height: 70rpx;
+  line-height: 70rpx;
+  padding: 0 15rpx;
+  background-color: #f0f0f0; 
+  border-radius: 8rpx;
+  color: #555;
+  font-size: 26rpx;
+  border: 1rpx solid #ddd;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.reset-btn {
+  background-color: #a8b8c8; /* 莫兰迪灰色 */
+  color: white;
+  height: 70rpx;
+  line-height: 70rpx;
+  font-size: 26rpx;
+  border-radius: 8rpx;
+  margin: 0 5rpx; /* 调整按钮与筛选器之间的间距 */
+  padding: 0 20rpx;
+  box-shadow: 0 2rpx 5rpx rgba(0,0,0,0.1);
+  transition: background-color 0.3s ease;
+  flex-shrink: 0;
+}
+
+.reset-btn::after {
+  border: none;
+}
+
+.reset-btn:active {
+  background-color: #90a0ae;
+}
+
+.record-table {
+  background-color: rgba(255, 255, 255, 0.85); 
+  border-radius: 10rpx;
+  max-height: 340rpx;
+  /* 设置最大高度，大约显示5条记录 */
+  overflow-y: scroll; /* 垂直方向滚动 */
+  box-shadow: 0 2rpx 8rpx rgba(0,0,0,0.05);
+  margin-top: 20rpx;
+}
+
+.table-header, .table-row {
+  display: flex;
+  border-bottom: 1rpx solid #eee;
+}
+
+.table-header {
+  background-color: #f5f7fa;
+  font-weight: bold;
+  position: sticky;
+  /* 确保标题固定 */
+  top: 0; /* 固定在顶部 */
+  z-index: 10;
+  /* 确保在滚动内容之上 */
+}
+
+.col {
+  padding: 15rpx 5rpx;
+  /* 调整内边距，使其更紧凑 */
+  text-align: center;
+  font-size: 24rpx; /* 字体稍微小一点 */
+  color: #333;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* 调整各列的 flex 比例，使其更紧凑 */
+.name-col {
+  flex: 1.2;
+}
+.course-col {
+  flex: 1;
+}
+.score-col {
+  flex: 0.8;
+  /* 成绩列可以窄一些 */
+}
+.date-col {
+  flex: 1.3;
+}
+.remarks-col {
+  flex: 1.5; /* 备注列可以宽一些 */
+}
+
+.empty-tip {
+  text-align: center;
+  padding: 30rpx;
+  color: #999;
+  font-size: 28rpx;
+}
